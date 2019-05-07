@@ -1,4 +1,8 @@
-# demo how a Autoplot Jython could be created.
+# demo how a Autoplot Jython could be created.  This can be imported with 
+#
+# ff= getFile( 'https://github.com/jbfaden/scripts/experimentalFunctions.jy',monitor.getSubtaskMonitor('import'))
+# execfile( ff.toString() )
+#
 
 def pprint( blah, name='' ):
     '''report the variable looking up its name and printing its value.  This will print the first instance it finds'''
