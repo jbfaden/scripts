@@ -1,4 +1,4 @@
 # demo spawn of unix program
 
 import os
-os.execv( 'xkill' )
+os.popen( 'xkill' )
