@@ -1,0 +1,38 @@
+# demo how a Autoplot Jython could be created.
+
+def pprint( blah, name='' ):
+    '''report the variable looking up its name and printing its value.  This will print the first instance it finds'''
+    if ( name=='' ):
+       blah_name = [ k for k,v in globals().iteritems() if v is blah]
+       if ( len( blah_name ) == 0 ):
+           print '<expr>: ', blah
+       elif ( len( blah_name ) > 1 ):
+           for b in blah_name:
+              print b, ': ', blah, ' (multiple names have this value)'
+       else:
+           print blah_name[0], ': ', blah
+    else:
+       blah_name = name
+       print name, ': ', blah
+
+def synchronize( t, *args, **kwargs ):
+    '''Synchronize the data to timetags t.
+    Params:
+    * t  the target timetags
+    * d1..d3  the datasets to synchronize
+    * nn=0    if 1, then do nearest neighbor synchronization, instead of interpolation. 
+    Returns:
+    ( d1..d3 ) list of synchronized data sets
+    '''
+    result= []
+    for ds in args:
+       t1= ds.property( QDataSet.DEPEND_0 )
+       findx= findex( t1, t )
+       nn= kwargs['nn']
+       if ( nn==None ): nn=0
+       if ( nn==1 ):
+           findx= round( findx )
+       rs= interpolate( ds, findx )
+       result.append(rs)
+    return result
+
